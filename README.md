@@ -6,7 +6,7 @@ The maze is a simply Choose-Your-Adventure game that will ask the player to pick
 
  ## WireFrame ##
 
-![WireFrame] (https://git.generalassemb.ly/Yourehilarryous/The-Maze/blob/master/Homepage.png)
+![WireFrame] (https://i.imgur.com/xOvzAJv.jpg)
 
 ## User Stoies ##
 
