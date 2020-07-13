@@ -6,7 +6,7 @@ The maze is a simply Choose-Your-Adventure game that will ask the player to pick
 
  ## WireFrame ##
 
-![WireFrame] (pictures/The-Maze-Wireframe---Wireframe-cc-Premium.pdf)
+![WireFrame] (pictures/Homepage.png)
 
 ## User Stoies ##
 
