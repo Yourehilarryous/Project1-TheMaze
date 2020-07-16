@@ -36,6 +36,8 @@ The encounters include:
 
 Once all encounters are cleared the player will exit the maze and the game will end.
 
+
+
 ## Technologies ##
 
 The following technologies were used to create the game: 

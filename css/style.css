@@ -1,0 +1,18 @@
+.hidden {
+    display: none;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 600px;
+    width: auto;
+    border:5px solid white;
+}
+
+.button-container{
+    float: left;
+}
