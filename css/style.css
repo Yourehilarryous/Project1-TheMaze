@@ -5,14 +5,42 @@
 #game-container {
     display: flex;
     flex-direction: column;
+    position: fixed;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     height: 600px;
-    width: auto;
+    width: 800px;
     border:5px solid white;
+    padding: 15px;
 }
 
-.button-container{
-    float: left;
+.confirmation {
+    margin: 20px;
+    /* can probably set the bg and font color when the buttons are made */
 }
+
+.button-containter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.option1 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 10%
+}
+
+.option2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10%
+}
+
+

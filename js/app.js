@@ -32,8 +32,8 @@
     const button2 = document.querySelector("#btn2")
     let narrative = document.querySelector(".flavor-text p")
     let mazeEnemy = ""
-    // let randomEnemy = enemy
     let roomCount = 0
+    const hideButton = document.querySelector(".button-container")
     let roomButton1 = document.createElement("button")
     let roombutton2 = document.createElement("button")
     const end = new Audio("Media/death.mp3")
@@ -78,13 +78,15 @@ function checkGameDagger() {
         console.log(roomCount)
     } else if (roomCount === 3 && daggerPreReqs()){
         thirdRoom()
-        console.log(roomCount)    
+        console.log(roomCount)
     } else if (roomCount === 4 && daggerPreReqs()){
         fourthRoom()
         console.log(roomCount)    
+    } else if (roomCount === 5 && daggerPreReqs()){
+        mazeClear()
     } else {
         gameOver()
-        return
+        
     }
     roomCount++
 }
@@ -104,10 +106,12 @@ function checkGameCloak() {
         console.log(roomCount)
     } else if (roomCount === 4 && cloakPreReqs()){
         fourthRoom()
-        console.log(roomCount)    
+        console.log(roomCount)
+    } else if (roomCount === 5 && cloakPreReqs()){
+        mazeClear()
     } else {
         gameOver()
-        return
+        
     }
     roomCount++
 }
@@ -121,11 +125,11 @@ button2.addEventListener("click", checkGameCloak)
 
 
 function startMaze (target) {
+    document.querySelector("h2").classList.toggle("hidden")
     player.utilityItem = target
 
     console.log(player.utilityItem)
     
-    document.querySelector("h2").classList.toggle("hidden")
     narrative.innerHTML = "24px" // does not work, will need to figure out how change the font size
     narrative.innerHTML = "So you chose the " + target + "? Not my first choice, but sure. Now for the fun part!"+ "<br />" + "<br />" + "I mean... It's time fo you to begin the challenge" + "<br />" + "<br />" + "(make sure to read this in a cool ominus voice)" 
 
@@ -163,7 +167,6 @@ function firstRoom () {
     console.log(mazeEnemy)
     console.log(player.utilityItem)
 
-    document.querySelector("h2").classList.toggle("hidden")
     narrative.innerHTML = "Good job! Oh wait, looks like you ran into a " + mazeEnemy.enemyCategorey + "!" + "<br />" + "<br />" + mazeEnemy.name + ": " + mazeEnemy.greeting
 
     if (player.utilityItem === "Dagger"){
@@ -206,7 +209,7 @@ function cloakPreReqs(){
 
 
 function secondRoom () {
-    document.querySelector("h2").classList.toggle("hidden")
+    // document.querySelector("h2").classList.toggle("hidden")
 
     randomize();
 
@@ -214,7 +217,7 @@ function secondRoom () {
     console.log(mazeEnemy)
     console.log(player.utilityItem)
 
-    narrative.innerHTML = "Well <strong> THAT </strong> was close! Looks likes you were able to get past him."
+    narrative.innerHTML = "Well <strong> THAT </strong> was close. Looks likes you were able to get past him. Pretty sure you've got another problem though." + "<br />" + "<br />" + mazeEnemy.name + ": "+ mazeEnemy.greeting
 
     if (player.utilityItem === "Dagger"){
         daggerPreReqs()
@@ -227,8 +230,6 @@ function secondRoom () {
 
 
 function thirdRoom (){ 
-    document.querySelector("h2").classList.toggle("hidden")
-
     randomize();
 
     mazeEnemy = enemy.shift()
@@ -254,8 +255,6 @@ function thirdRoom (){
         
         gameOver()
 
-        roomButton1.remove()
-        roombutton2.remove()
     }
 
     if (player.utilityItem === "Dagger"){
@@ -266,9 +265,9 @@ function thirdRoom (){
 }
 
 function fourthRoom() { 
-
+    // document.querySelector("h2").classList.toggle("hidden")
     document.querySelector(".confirmation-message").innerText = ""
-    document.querySelector("h2").classList.toggle("hidden")
+    
 
     randomize();
 
@@ -278,11 +277,47 @@ function fourthRoom() {
     narrative.innerHTML = "Test"
 }
 
-function gameOver(){
-    end.play()
+function mazeClear() {
     document.querySelector("h2").classList.toggle("hidden")
+    document.querySelector("h2").innerText = "Cleared!"
+
+    narrative.innerHTML = "Well would you look at that, you actually made it out. " + "<br />" + "<br />" + "Not sure what you expected though, I told you there weren't any prizes"
+
+    roomButton1.innerText = "Restart"
+    document.querySelector("div.flavor-text").appendChild(roomButton1)
+    roomButton1.setAttribute("class", "confirmation")
+    roomButton1.onclick = function () {
+        window.location.reload(false)
+    }
+
+    roombutton2.remove()
+
+    document.querySelector("#btn1").classList.toggle("hidden")
+    document.querySelector("#btn2").classList.toggle("hidden")
+
+}
+
+function gameOver(){
+    document.querySelector("h2").classList.toggle("hidden")
+
+    end.play()
+    document.querySelector(".confirmation-message").innerText = ""
+    document.querySelector("h2").innerText = "Game Over!"
     narrative.innerHTML = "Oof. Welp, can't say I didn't see that coming"
-    console.log("still works!")
+
+    roomButton1.innerText = "Restart"
+    document.querySelector("div.flavor-text").appendChild(roomButton1)
+    roomButton1.setAttribute("class", "confirmation")
+    roomButton1.onclick = function () {
+        window.location.reload(false)
+    }
+
+    roombutton2.remove()
+
+    document.querySelector("#btn1").classList.toggle("hidden")
+    document.querySelector("#btn2").classList.toggle("hidden")
+
+
 }
 
 // add conditionals for naration depending on the enemy present.
