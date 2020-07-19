@@ -13,15 +13,69 @@
     }
 
     const enemy = [    
-        { enemyCategorey: "slime", name: "Henry", enemyType: "Small",  greeting: "\"I will consume you and you will NOT be daijob\"" },
-        { enemyCategorey: "Mutated Rat", name: "Gary", enemyType: "Small",  greeting: "\"(Uncomforatable chittering)\"" }, 
-        { enemyCategorey: "Demon Bat", name: "Rick", enemyType: "Small", greeting: "\"No, I'm not a pickle\""},
-        { enemyCategorey: "Decaying Wolf", name: "Dread", enemyType: "Mobile",  greeting: "\"(Low blood-curdling growl)\"" }, 
-        { enemyCategorey: "Grave Robber", name: "Poncho", enemyType: "Mobile", greeting: "\"My phone died and now I can't click the next room function\""},
-        { enemyCategorey: "Skeletal Solider", name: "Francis", enemyType: "Mobile",  greeting: "\"(bones clattering)\""},
-        { enemyCategorey: "Stone Golem", name: "Hagrid", enemyType: "Stationary", greeting: "\"You're a wiz... You're not Harry!\"" }, 
-        { enemyCategorey: "Curse Armor", name: "Jarod", enemyType: "Stationary", greeting: "\"Dude stole my legs. Can you believe that?\""},
-        { enemyCategorey: "Troll", name: "Za'thuk, the Flesh Renderer", enemyType: "Impassible",  greeting: "\"Do you have something for me, mon?\""} // will need to set parameters for passing this enemy
+        { 
+            enemyCategorey: "slime", 
+            name: "Henry", 
+            enemyType: "Small",  
+            greeting: "\"I will consume you and you will NOT be daijoubu\"",
+            image: "images/Slime.png"
+        },
+        { 
+            enemyCategorey: "Mutated Rat", 
+            name: "Gary", 
+            enemyType: "Small",  
+            greeting: "\"(Uncomforatable chittering)\"",
+            image: "images/MutatedRat.png"
+        }, 
+        { 
+            enemyCategorey: "Demon Bat", 
+            name: "Rick", 
+            enemyType: "Small", 
+            greeting: "\"No, I'm not a pickle\"",
+            image: "images/DemonBat.png"
+        },
+        { 
+            enemyCategorey: "Zombie", 
+            name: "Carl", 
+            enemyType: "Mobile",  
+            greeting: "\"I wanted to be in Resident Evil, but this was the only gig I could get.\"",
+            image: "images/Zombie.png" 
+        }, 
+        { 
+            enemyCategorey: "Grave Robber", 
+            name: "Poncho", 
+            enemyType: "Mobile", 
+            greeting: "\"My phone died and now I can't click the next room function\"",
+            image: "images/GraveRobber.png"
+        },
+        { 
+            enemyCategorey: "Skeletal Solider", 
+            name: "Francis", 
+            enemyType: "Mobile",  
+            greeting: "\"(bones clattering)\"",
+            image: "images/SkeletalSoldier.png"
+        },
+        { 
+            enemyCategorey: "Stone Golem", 
+            name: "Hagrid", 
+            enemyType: "Stationary", 
+            greeting: "\"You're a wiz... You're not Harry!\"",
+            image: "images/Golem.png" 
+        }, 
+        { 
+            enemyCategorey: "Cursed Armor", 
+            name: "Jarod", 
+            enemyType: "Stationary", 
+            greeting: "\"Dude stole my legs. Can you believe that?\"",
+            image: "images/CursedArmor.png"
+        },
+        { 
+            enemyCategorey: "Troll", 
+            name: "Za'thuk, the Flesh Renderer", 
+            enemyType: "Impassible",  
+            greeting: "\"*Lunges at your head*\"",
+            image: "images/Troll.png"
+        } // will need to set parameters for passing this enemy
     ]
 
     //will need to create additional enemies 
@@ -31,6 +85,7 @@
     const button1 = document.querySelector("#btn1")
     const button2 = document.querySelector("#btn2")
     let narrative = document.querySelector(".flavor-text p")
+    let image = document.querySelector(".enemy-img")
     let mazeEnemy = ""
     let roomCount = 0
     const hideButton = document.querySelector(".button-container")
@@ -119,8 +174,7 @@ function checkGameCloak() {
 
 button1.addEventListener("click", checkGameDagger)
 button2.addEventListener("click", checkGameCloak)
-
-
+image.classList.toggle("hidden")
 
 
 
@@ -131,7 +185,7 @@ function startMaze (target) {
     console.log(player.utilityItem)
     
     narrative.innerHTML = "24px" // does not work, will need to figure out how change the font size
-    narrative.innerHTML = "So you chose the " + target + "? Not my first choice, but sure. Now for the fun part!"+ "<br />" + "<br />" + "I mean... It's time fo you to begin the challenge" + "<br />" + "<br />" + "(make sure to read this in a cool ominus voice)" 
+    narrative.innerHTML = "So you chose the " + target + "? Not my first choice, but sure. Now for the fun part!"+ "<br />" + "<br />" + "I mean... It's time fo you to enter the maze" + "<br />" + "<br />" + "(I said that in a cool and ominus voice by the way"
 
     // Change both icons above the selection buttons
 
@@ -151,15 +205,16 @@ function startMaze (target) {
 const randomize = () => {
     for (let i = enemy.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * enemy.length)
-        const randomE = enemy[j]
+        const randomEnemy = enemy[j]
         enemy[j] = enemy[i]
-        enemy[i] = randomE
+        enemy[i] = randomEnemy
     }
 }
 
 
 
 function firstRoom () {
+    image.classList.toggle("hidden")
 
     randomize();
 
@@ -167,7 +222,8 @@ function firstRoom () {
     console.log(mazeEnemy)
     console.log(player.utilityItem)
 
-    narrative.innerHTML = "Good job! Oh wait, looks like you ran into a " + mazeEnemy.enemyCategorey + "!" + "<br />" + "<br />" + mazeEnemy.name + ": " + mazeEnemy.greeting
+    narrative.innerHTML = "Here we go. Oh wait, looks like you ran into a " + mazeEnemy.enemyCategorey + "!" + "<br />" + "<br />" + mazeEnemy.name + ": " + mazeEnemy.greeting
+    image.setAttribute("src", mazeEnemy.image)
 
     if (player.utilityItem === "Dagger"){
         daggerPreReqs()
@@ -214,6 +270,9 @@ function secondRoom () {
     randomize();
 
     mazeEnemy = enemy.shift()
+    image.setAttribute("src", mazeEnemy.image)
+
+
     console.log(mazeEnemy)
     console.log(player.utilityItem)
 
@@ -233,9 +292,11 @@ function thirdRoom (){
     randomize();
 
     mazeEnemy = enemy.shift()
+    image.setAttribute("src", mazeEnemy.image)
+
     console.log(mazeEnemy)
 
-    narrative.innerHTML = "Looks like we got past another one, you're pretty good at this."
+    narrative.innerHTML = "Looks like you got past another one, you're pretty good at this." + "<br />" + "<br />" + "You can probably guess what happens next though." + "<br />" + "<br />" + mazeEnemy.name + ": " + mazeEnemy.greeting
 
     roomButton1.innerText = "Keep going"
     document.querySelector("div.flavor-text").appendChild(roomButton1)
@@ -272,9 +333,11 @@ function fourthRoom() {
     randomize();
 
     mazeEnemy = enemy.shift()
+    image.setAttribute("src", mazeEnemy.image)
+
     console.log(mazeEnemy)
 
-    narrative.innerHTML = "Test"
+    narrative.innerHTML = "I'm pretty sure you're almost out, Is that the light at the end of the tunnel?! Oh, its just " + mazeEnemy.name + "<br />" + "<br />" + mazeEnemy.name + ": " + mazeEnemy.greeting
 }
 
 function mazeClear() {
