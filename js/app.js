@@ -17,7 +17,7 @@
             enemyCategorey: "slime", 
             name: "Henry", 
             enemyType: "Small",  
-            greeting: "\"I will consume you and you will NOT be daijoubu\"",
+            greeting: "\"Everything is NOT daijoubu\"",
             image: "images/Slime.png"
         },
         { 
@@ -85,7 +85,9 @@
     const button1 = document.querySelector("#btn1")
     const button2 = document.querySelector("#btn2")
     let narrative = document.querySelector(".flavor-text p")
-    let image = document.querySelector(".enemy-img")
+    let enemyImage = document.querySelector(".enemy-img")
+    let buttonImage = document.querySelector(".button-img")
+    let buttonImage2 = document.querySelector(".button-img2")
     let mazeEnemy = ""
     let roomCount = 0
     const hideButton = document.querySelector(".button-container")
@@ -174,7 +176,7 @@ function checkGameCloak() {
 
 button1.addEventListener("click", checkGameDagger)
 button2.addEventListener("click", checkGameCloak)
-image.classList.toggle("hidden")
+enemyImage.classList.toggle("hidden")
 
 
 
@@ -214,7 +216,7 @@ const randomize = () => {
 
 
 function firstRoom () {
-    image.classList.toggle("hidden")
+    enemyImage.classList.toggle("hidden")
 
     randomize();
 
@@ -223,7 +225,9 @@ function firstRoom () {
     console.log(player.utilityItem)
 
     narrative.innerHTML = "Here we go. Oh wait, looks like you ran into a " + mazeEnemy.enemyCategorey + "!" + "<br />" + "<br />" + mazeEnemy.name + ": " + mazeEnemy.greeting
-    image.setAttribute("src", mazeEnemy.image)
+    enemyImage.setAttribute("src", mazeEnemy.image)
+    buttonImage.setAttribute("src", "images/Doors.png")
+    buttonImage2.setAttribute("src", "images/Doors.png")
 
     if (player.utilityItem === "Dagger"){
         daggerPreReqs()
@@ -270,7 +274,7 @@ function secondRoom () {
     randomize();
 
     mazeEnemy = enemy.shift()
-    image.setAttribute("src", mazeEnemy.image)
+    enemyImage.setAttribute("src", mazeEnemy.image)
 
 
     console.log(mazeEnemy)
@@ -292,7 +296,7 @@ function thirdRoom (){
     randomize();
 
     mazeEnemy = enemy.shift()
-    image.setAttribute("src", mazeEnemy.image)
+    enemyImage.setAttribute("src", mazeEnemy.image)
 
     console.log(mazeEnemy)
 
@@ -333,7 +337,7 @@ function fourthRoom() {
     randomize();
 
     mazeEnemy = enemy.shift()
-    image.setAttribute("src", mazeEnemy.image)
+    enemyImage.setAttribute("src", mazeEnemy.image)
 
     console.log(mazeEnemy)
 
@@ -343,8 +347,10 @@ function fourthRoom() {
 function mazeClear() {
     document.querySelector("h2").classList.toggle("hidden")
     document.querySelector("h2").innerText = "Cleared!"
+    enemyImage.setAttribute("src", "images/trophy.png")
+    document.querySelector(".confirmation-message").innerText = ""
 
-    narrative.innerHTML = "Well would you look at that, you actually made it out. " + "<br />" + "<br />" + "Not sure what you expected though, I told you there weren't any prizes"
+    narrative.innerHTML = "Well would you look at that, you actually made it out. " + "<br />" + "<br />" + "And no, you can't take the trophy with you."
 
     roomButton1.innerText = "Restart"
     document.querySelector("div.flavor-text").appendChild(roomButton1)
@@ -357,11 +363,17 @@ function mazeClear() {
 
     document.querySelector("#btn1").classList.toggle("hidden")
     document.querySelector("#btn2").classList.toggle("hidden")
+    document.querySelector(".button-img").classList.toggle("hidden")
+    document.querySelector(".button-img2").classList.toggle("hidden")
 
 }
 
 function gameOver(){
     document.querySelector("h2").classList.toggle("hidden")
+    enemyImage.setAttribute("src", "images/gameover.png")
+    enemyImage.style.height = "75px"
+    enemyImage.style.width = "75px"
+
 
     end.play()
     document.querySelector(".confirmation-message").innerText = ""
@@ -379,8 +391,8 @@ function gameOver(){
 
     document.querySelector("#btn1").classList.toggle("hidden")
     document.querySelector("#btn2").classList.toggle("hidden")
-
-
+    document.querySelector(".button-img").classList.toggle("hidden")
+    document.querySelector(".button-img2").classList.toggle("hidden")
 }
 
 // add conditionals for naration depending on the enemy present.
