@@ -66,3 +66,7 @@ The following technologies were used to create the game:
 - Javascript
 - HTML
 - CSS
+
+## Playable Game ##
+
+https://yourehilarryous.github.io/Project1-TheMaze/
