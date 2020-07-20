@@ -4,14 +4,6 @@
         utilityItem: ""
     }
 
-    let mazeRoom = {
-        // enemyPresent: (True of false)
-            //will need a function to determine. Will be used to add non-enemy related rooms.
-        // enemyType: (pulls one of the enemy object)
-        // enemyStatus: (this is will indicate the state of the enemy (i.e sleeping, active, injured))
-        // enemyName: (will be based on the name found in the object)
-    }
-
     const enemy = [    
         { 
             enemyCategorey: "slime", 
@@ -94,6 +86,7 @@
     let roomButton1 = document.createElement("button")
     let roombutton2 = document.createElement("button")
     const end = new Audio("Media/death.mp3")
+    const endClear = new Audio("Media/victory.mp3")
 
 // Functions
     // Welcome screen
@@ -173,6 +166,29 @@ function checkGameCloak() {
     roomCount++
 }
 
+function daggerPreReqs() {
+    if(mazeEnemy.enemyType === "Small") {
+        return true
+    } else if (mazeEnemy.enemyType === "Mobile"){
+        return true
+    } else if (mazeEnemy.enemyType === "Stationary"){
+        return false
+    } else {
+        return false
+    }
+}
+
+function cloakPreReqs(){
+    if(mazeEnemy.enemyType === "Small") {
+        return true
+    } else if (mazeEnemy.enemyType === "Mobile"){
+        return false
+    } else if (mazeEnemy.enemyType === "Stationary"){
+        return true
+    } else {
+        return false
+    }
+}
 
 button1.addEventListener("click", checkGameDagger)
 button2.addEventListener("click", checkGameCloak)
@@ -187,7 +203,7 @@ function startMaze (target) {
     console.log(player.utilityItem)
     
     narrative.innerHTML = "24px" // does not work, will need to figure out how change the font size
-    narrative.innerHTML = "So you chose the " + target + "? Not my first choice, but sure. Now for the fun part!"+ "<br />" + "<br />" + "I mean... It's time fo you to enter the maze" + "<br />" + "<br />" + "(I said that in a cool and ominus voice by the way"
+    narrative.innerHTML = "So you chose the " + target + "? Not my first choice, but sure. Now for the fun part!"+ "<br />" + "<br />" + "I mean... It's time fo you to enter the maze" + "<br />" + "<br />" + "(I said that in a cool and ominus voice by the way)"
 
     // Change both icons above the selection buttons
 
@@ -200,7 +216,6 @@ function startMaze (target) {
     // button2.addEventListener("click", () => {
     //     firstRoom();
     // })
-
 }
 
 
@@ -212,7 +227,6 @@ const randomize = () => {
         enemy[i] = randomEnemy
     }
 }
-
 
 
 function firstRoom () {
@@ -228,49 +242,16 @@ function firstRoom () {
     enemyImage.setAttribute("src", mazeEnemy.image)
     buttonImage.setAttribute("src", "images/Doors.png")
     buttonImage2.setAttribute("src", "images/Doors.png")
-
-    if (player.utilityItem === "Dagger"){
-        daggerPreReqs()
-    } else if (player.utilityItem === "Cloak"){
-        cloakPreReqs()
-    }
-
 }
 
 // Create a function that will determine whether or not the player can pass based on the utility item.
 
-function daggerPreReqs() {
-    if(mazeEnemy.enemyType === "Small") {
-        return true
-    } else if (mazeEnemy.enemyType === "Mobile"){
-        return true
-    } else if (mazeEnemy.enemyType === "Stationary"){
-        return false
-    } else {
-        return false
-    }
-}
 
-
-
-function cloakPreReqs(){
-    if(mazeEnemy.enemyType === "Small") {
-        return true
-    } else if (mazeEnemy.enemyType === "Mobile"){
-        return false
-    } else if (mazeEnemy.enemyType === "Stationary"){
-        return true
-    } else {
-        return false
-    }
-}
 
 // // create game over function
 
 
 function secondRoom () {
-    // document.querySelector("h2").classList.toggle("hidden")
-
     randomize();
 
     mazeEnemy = enemy.shift()
@@ -330,7 +311,6 @@ function thirdRoom (){
 }
 
 function fourthRoom() { 
-    // document.querySelector("h2").classList.toggle("hidden")
     document.querySelector(".confirmation-message").innerText = ""
     
 
@@ -352,6 +332,7 @@ function mazeClear() {
 
     narrative.innerHTML = "Well would you look at that, you actually made it out. " + "<br />" + "<br />" + "And no, you can't take the trophy with you."
 
+    endClear.play()
     roomButton1.innerText = "Restart"
     document.querySelector("div.flavor-text").appendChild(roomButton1)
     roomButton1.setAttribute("class", "confirmation")
